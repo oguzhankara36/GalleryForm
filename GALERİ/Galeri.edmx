@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="galeriModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="araclar">
+          <Key>
+            <PropertyRef Name="aracno" />
+          </Key>
+          <Property Name="aracno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aracfiyat" Type="money" />
+          <Property Name="aracadet" Type="int" />
+          <Property Name="aracmarka" Type="varchar" MaxLength="50" />
+          <Property Name="aracmodel" Type="varchar" MaxLength="50" />
+          <Property Name="yıl" Type="varchar" MaxLength="50" />
+          <Property Name="ozellik" Type="varchar" MaxLength="50" />
+          <Property Name="motor" Type="varchar" MaxLength="50" />
+          <Property Name="paket" Type="varchar" MaxLength="50" />
+          <Property Name="renk" Type="varchar" MaxLength="50" />
+          <Property Name="subeno" Type="int" />
+        </EntityType>
+        <EntityType Name="kullanıcılar">
+          <Key>
+            <PropertyRef Name="kullanıcıno" />
+          </Key>
+          <Property Name="kullanıcıno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullanıcıadı" Type="varchar" MaxLength="50" />
+          <Property Name="sifre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="musteriler">
+          <Key>
+            <PropertyRef Name="musterino" />
+          </Key>
+          <Property Name="musterino" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adsoyad" Type="varchar" MaxLength="50" />
+          <Property Name="yas" Type="int" />
+          <Property Name="musteribakiye" Type="money" />
+        </EntityType>
+        <EntityType Name="subeler">
+          <Key>
+            <PropertyRef Name="subeno" />
+          </Key>
+          <Property Name="subeno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subeadi" Type="varchar" MaxLength="50" />
+          <Property Name="calisansayisi" Type="int" />
+          <Property Name="subeciro" Type="money" />
+          <Property Name="musterino" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_araclar_subeler">
+          <End Role="subeler" Type="Self.subeler" Multiplicity="0..1" />
+          <End Role="araclar" Type="Self.araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subeler">
+              <PropertyRef Name="subeno" />
+            </Principal>
+            <Dependent Role="araclar">
+              <PropertyRef Name="subeno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_subeler_musteriler">
+          <End Role="musteriler" Type="Self.musteriler" Multiplicity="0..1" />
+          <End Role="subeler" Type="Self.subeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="musteriler">
+              <PropertyRef Name="musterino" />
+            </Principal>
+            <Dependent Role="subeler">
+              <PropertyRef Name="musterino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="galeriModelStoreContainer">
+          <EntitySet Name="araclar" EntityType="Self.araclar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kullanıcılar" EntityType="Self.kullanıcılar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="musteriler" EntityType="Self.musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subeler" EntityType="Self.subeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_araclar_subeler" Association="Self.FK_araclar_subeler">
+            <End Role="subeler" EntitySet="subeler" />
+            <End Role="araclar" EntitySet="araclar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_subeler_musteriler" Association="Self.FK_subeler_musteriler">
+            <End Role="musteriler" EntitySet="musteriler" />
+            <End Role="subeler" EntitySet="subeler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="galeriModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="araclar">
+          <Key>
+            <PropertyRef Name="aracno" />
+          </Key>
+          <Property Name="aracno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aracfiyat" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="aracadet" Type="Int32" />
+          <Property Name="aracmarka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="aracmodel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="yıl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ozellik" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="motor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="paket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="renk" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="subeno" Type="Int32" />
+          <NavigationProperty Name="subeler" Relationship="Self.FK_araclar_subeler" FromRole="araclar" ToRole="subeler" />
+        </EntityType>
+        <EntityType Name="musteriler">
+          <Key>
+            <PropertyRef Name="musterino" />
+          </Key>
+          <Property Name="musterino" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adsoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="yas" Type="Int32" />
+          <Property Name="musteribakiye" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="subelers" Relationship="Self.FK_subeler_musteriler" FromRole="musteriler" ToRole="subeler" />
+        </EntityType>
+        <EntityType Name="subeler">
+          <Key>
+            <PropertyRef Name="subeno" />
+          </Key>
+          <Property Name="subeno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subeadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="calisansayisi" Type="Int32" />
+          <Property Name="subeciro" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="musterino" Type="Int32" />
+          <NavigationProperty Name="araclars" Relationship="Self.FK_araclar_subeler" FromRole="subeler" ToRole="araclar" />
+          <NavigationProperty Name="musteriler" Relationship="Self.FK_subeler_musteriler" FromRole="subeler" ToRole="musteriler" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_araclar_subeler">
+          <End Role="subeler" Type="Self.subeler" Multiplicity="0..1" />
+          <End Role="araclar" Type="Self.araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subeler">
+              <PropertyRef Name="subeno" />
+            </Principal>
+            <Dependent Role="araclar">
+              <PropertyRef Name="subeno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_subeler_musteriler">
+          <End Role="musteriler" Type="Self.musteriler" Multiplicity="0..1" />
+          <End Role="subeler" Type="Self.subeler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="musteriler">
+              <PropertyRef Name="musterino" />
+            </Principal>
+            <Dependent Role="subeler">
+              <PropertyRef Name="musterino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="galeriEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="araclars" EntityType="Self.araclar" />
+          <EntitySet Name="musterilers" EntityType="Self.musteriler" />
+          <EntitySet Name="subelers" EntityType="Self.subeler" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_araclar_subeler" Association="Self.FK_araclar_subeler">
+            <End Role="subeler" EntitySet="subelers" />
+            <End Role="araclar" EntitySet="araclars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_subeler_musteriler" Association="Self.FK_subeler_musteriler">
+            <End Role="musteriler" EntitySet="musterilers" />
+            <End Role="subeler" EntitySet="subelers" />
+          </AssociationSet>
+          <EntitySet Name="kullanıcılar" EntityType="galeriModel.kullanıcılar" />
+        </EntityContainer>
+        <EntityType Name="kullanıcılar">
+          <Key>
+            <PropertyRef Name="kullanıcıno" />
+          </Key>
+          <Property Name="kullanıcıno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullanıcıadı" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="galeriModelStoreContainer" CdmEntityContainer="galeriEntities">
+          <EntitySetMapping Name="araclars">
+            <EntityTypeMapping TypeName="galeriModel.araclar">
+              <MappingFragment StoreEntitySet="araclar">
+                <ScalarProperty Name="aracno" ColumnName="aracno" />
+                <ScalarProperty Name="aracfiyat" ColumnName="aracfiyat" />
+                <ScalarProperty Name="aracadet" ColumnName="aracadet" />
+                <ScalarProperty Name="aracmarka" ColumnName="aracmarka" />
+                <ScalarProperty Name="aracmodel" ColumnName="aracmodel" />
+                <ScalarProperty Name="yıl" ColumnName="yıl" />
+                <ScalarProperty Name="ozellik" ColumnName="ozellik" />
+                <ScalarProperty Name="motor" ColumnName="motor" />
+                <ScalarProperty Name="paket" ColumnName="paket" />
+                <ScalarProperty Name="renk" ColumnName="renk" />
+                <ScalarProperty Name="subeno" ColumnName="subeno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="musterilers">
+            <EntityTypeMapping TypeName="galeriModel.musteriler">
+              <MappingFragment StoreEntitySet="musteriler">
+                <ScalarProperty Name="musterino" ColumnName="musterino" />
+                <ScalarProperty Name="adsoyad" ColumnName="adsoyad" />
+                <ScalarProperty Name="yas" ColumnName="yas" />
+                <ScalarProperty Name="musteribakiye" ColumnName="musteribakiye" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subelers">
+            <EntityTypeMapping TypeName="galeriModel.subeler">
+              <MappingFragment StoreEntitySet="subeler">
+                <ScalarProperty Name="subeno" ColumnName="subeno" />
+                <ScalarProperty Name="subeadi" ColumnName="subeadi" />
+                <ScalarProperty Name="calisansayisi" ColumnName="calisansayisi" />
+                <ScalarProperty Name="subeciro" ColumnName="subeciro" />
+                <ScalarProperty Name="musterino" ColumnName="musterino" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="galeriModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kullanıcılar">
+            <EntityTypeMapping TypeName="galeriModel.kullanıcılar">
+              <MappingFragment StoreEntitySet="kullanıcılar">
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="kullanıcıadı" ColumnName="kullanıcıadı" />
+                <ScalarProperty Name="kullanıcıno" ColumnName="kullanıcıno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
